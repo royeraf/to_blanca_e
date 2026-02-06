@@ -62,10 +62,11 @@
         .heart-container {
             position: relative;
             margin-bottom: 20px;
-            animation: heartbeat 2s ease-in-out infinite;
+            animation: heartbeat 2s ease-in-out 1.5s infinite, slideUp 1s ease-out 0.5s both;
             display: flex;
             justify-content: center;
             align-items: center;
+            opacity: 0;
         }
 
         @keyframes heartbeat {
@@ -91,12 +92,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradient-shift 5s ease infinite;
+            animation: gradient-shift 5s ease infinite, slideUp 1s ease-out 0.2s both;
             text-shadow: none;
             margin-bottom: 18px;
             letter-spacing: 1px;
             filter: drop-shadow(0 2px 8px rgba(168, 50, 72, 0.2));
-        }
+            opacity: 0;
 
         .name {
             font-family: 'Cinzel Decorative', serif;
@@ -108,9 +109,9 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradient-shift 4s ease infinite;
+            animation: gradient-shift 4s ease infinite, slideUp 1s ease-out 0.9s both;
             filter: drop-shadow(0 3px 8px rgba(168, 50, 72, 0.25));
-        }
+            opacity: 0;
 
         @keyframes gradient-shift {
             0%, 100% { background-position: 0% 50%; }
@@ -124,13 +125,35 @@
             color: #9B4858;
             margin-top: 22px;
             opacity: 0;
-            animation: fadeIn 2s ease-out 1s forwards;
+            animation: slideUp 1s ease-out 1.3s both;
             letter-spacing: 2px;
             font-style: italic;
         }
 
         @keyframes fadeIn {
             to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUpRotate {
+            from {
+                opacity: 0;
+                transform: translateY(40px) rotate(2deg) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(-3deg) scale(1);
+            }
         }
 
         /* SVG Corazones flotantes */
@@ -184,10 +207,9 @@
         .cute-image-container {
             margin-top: 20px;
             pointer-events: none;
-            animation: fadeIn 2s ease-out 1.5s forwards;
+            animation: slideUpRotate 1.2s ease-out 1.7s both;
             opacity: 0;
             position: relative;
-            transform: rotate(-3deg);
         }
 
         .cute-image-frame {
@@ -402,7 +424,12 @@
             height: 100%;
             z-index: 2;
             pointer-events: none;
-            opacity: 0.18;
+            opacity: 0;
+            animation: fadeToOpacity 3s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeToOpacity {
+            to { opacity: 0.18; }
         }
 
         /* Orbes de luz bokeh */
