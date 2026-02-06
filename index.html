@@ -400,9 +400,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            z-index: 2;
             pointer-events: none;
-            opacity: 0.12;
+            opacity: 0.18;
         }
 
         /* Orbes de luz bokeh */
@@ -509,7 +509,12 @@
     </style>
 </head>
 <body>
-    <!-- Patron SVG de corazones con estela -->
+    <!-- Orbes bokeh de fondo -->
+    <div class="bokeh-container" id="bokeh"></div>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Patron SVG de corazones con estela (encima del canvas matrix) -->
     <svg class="heart-trail-bg" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <pattern id="heartTrailPattern" x="0" y="0" width="220" height="260" patternUnits="userSpaceOnUse">
@@ -527,11 +532,6 @@
         </defs>
         <rect width="100%" height="100%" fill="url(#heartTrailPattern)"/>
     </svg>
-
-    <!-- Orbes bokeh de fondo -->
-    <div class="bokeh-container" id="bokeh"></div>
-
-    <canvas id="matrix-canvas"></canvas>
 
     <div class="floating-hearts" id="floating-hearts"></div>
 
