@@ -393,6 +393,18 @@
             }
         }
 
+        /* Patron SVG de corazones con estela */
+        .heart-trail-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+
         /* Orbes de luz bokeh */
         .bokeh-container {
             position: fixed;
@@ -497,6 +509,25 @@
     </style>
 </head>
 <body>
+    <!-- Patron SVG de corazones con estela -->
+    <svg class="heart-trail-bg" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <pattern id="heartTrailPattern" x="0" y="0" width="220" height="260" patternUnits="userSpaceOnUse">
+                <!-- Estela de puntos curvada -->
+                <path d="M30 240 Q45 220 50 200 Q55 175 70 155 Q85 135 95 115 Q105 95 115 80 Q130 60 140 50" fill="none" stroke="#9B4858" stroke-width="3.5" stroke-dasharray="8 10" stroke-linecap="round"/>
+                <!-- Corazon hand-drawn al final de la estela -->
+                <g transform="translate(140, 18) scale(0.38)">
+                    <path d="M50 85 C50 85 18 68 10 45 C5 30 10 12 25 10 C38 8 48 18 50 25 C52 18 62 8 75 10 C90 12 95 30 90 45 C82 68 50 85 50 85Z" fill="none" stroke="#9B4858" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Lineas de movimiento -->
+                    <path d="M92 25 Q100 22 108 25" fill="none" stroke="#9B4858" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M95 38 Q103 36 108 40" fill="none" stroke="#9B4858" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M30 5 Q35 -2 42 2" fill="none" stroke="#9B4858" stroke-width="2.5" stroke-linecap="round"/>
+                </g>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#heartTrailPattern)"/>
+    </svg>
+
     <!-- Orbes bokeh de fondo -->
     <div class="bokeh-container" id="bokeh"></div>
 
