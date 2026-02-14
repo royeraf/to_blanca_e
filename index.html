@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Feliz San Valentin - BLANCA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -26,13 +29,28 @@
         }
 
         @keyframes bg-shift {
-            0%, 100% { background-position: 0% 50%; }
-            25% { background-position: 100% 0%; }
-            50% { background-position: 100% 100%; }
-            75% { background-position: 0% 100%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            25% {
+                background-position: 100% 0%;
+            }
+
+            50% {
+                background-position: 100% 100%;
+            }
+
+            75% {
+                background-position: 0% 100%;
+            }
         }
 
         /* Canvas para el efecto Matrix */
+        /* Canvas para el efecto Matrix (COMENTADO) */
+        /*
         #matrix-canvas {
             position: fixed;
             top: 0;
@@ -41,6 +59,54 @@
             height: 100%;
             z-index: 1;
             opacity: 0.6;
+        }
+        */
+
+        /* Efecto Lluvia de Pétalos */
+        #petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(to bottom right, rgba(255, 192, 203, 0.6), rgba(220, 20, 60, 0.4));
+            border-radius: 150% 0 150% 0;
+            opacity: 0;
+            animation: animatePetal linear infinite;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+        }
+
+        @keyframes animatePetal {
+            0% {
+                transform: translateY(-5vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translateY(50vh) translateX(25px) rotate(180deg);
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(105vh) translateX(-25px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* Contenido central */
@@ -62,7 +128,7 @@
         .heart-container {
             position: relative;
             margin-bottom: 20px;
-            animation: heartDrop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards, heartbeat 2s ease-in-out 1.5s infinite;
+            animation: heartDrop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards, heartbeat 2s ease-in-out 2s infinite;
             opacity: 0;
             display: flex;
             justify-content: center;
@@ -70,19 +136,52 @@
         }
 
         @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            15% { transform: scale(1.08); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.04); }
-            60% { transform: scale(1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.08);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.04);
+            }
+
+            60% {
+                transform: scale(1);
+            }
         }
 
         @keyframes heartDrop {
-            0% { opacity: 0; transform: translateY(-80px) scale(0) rotate(-30deg); }
-            50% { opacity: 1; transform: translateY(10px) scale(1.15) rotate(5deg); }
-            70% { transform: translateY(-5px) scale(0.95) rotate(-2deg); }
-            85% { transform: translateY(3px) scale(1.02) rotate(1deg); }
-            100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+            0% {
+                opacity: 0;
+                transform: translateY(-80px) scale(0) rotate(-30deg);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(10px) scale(1.15) rotate(5deg);
+            }
+
+            70% {
+                transform: translateY(-5px) scale(0.95) rotate(-2deg);
+            }
+
+            85% {
+                transform: translateY(3px) scale(1.02) rotate(1deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
         }
 
         .heart-svg {
@@ -95,89 +194,147 @@
             font-family: 'Great Vibes', cursive;
             font-size: 56px;
             font-weight: 400;
-            background: linear-gradient(135deg, #A83248 0%, #C23850 30%, #D04058 50%, #C23850 70%, #A83248 100%);
+            background: linear-gradient(135deg, #D4143A 0%, #FF2E50 30%, #FF4D6D 50%, #FF2E50 70%, #D4143A 100%);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: titleReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards, gradient-shift 5s ease 2s infinite, titleGlow 3s ease-in-out 2s infinite;
+            animation: titleReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards, gradient-shift 5s ease 2.5s infinite, titleGlow 3s ease-in-out 2.5s infinite;
             opacity: 0;
             text-shadow: none;
             margin-bottom: 18px;
             letter-spacing: 1px;
-            filter: drop-shadow(0 2px 8px rgba(168, 50, 72, 0.2));
+            filter: drop-shadow(0 2px 8px rgba(220, 20, 60, 0.3));
         }
 
         @keyframes titleReveal {
-            0% { opacity: 0; transform: translateY(30px) scale(0.8); filter: blur(10px) drop-shadow(0 2px 8px rgba(168, 50, 72, 0)); }
-            60% { opacity: 1; transform: translateY(-5px) scale(1.05); filter: blur(0) drop-shadow(0 2px 15px rgba(168, 50, 72, 0.4)); }
-            80% { transform: translateY(2px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0) drop-shadow(0 2px 8px rgba(168, 50, 72, 0.2)); }
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.8);
+                filter: blur(10px) drop-shadow(0 2px 8px rgba(168, 50, 72, 0));
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateY(-5px) scale(1.05);
+                filter: blur(0) drop-shadow(0 2px 15px rgba(168, 50, 72, 0.4));
+            }
+
+            80% {
+                transform: translateY(2px) scale(0.98);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0) drop-shadow(0 2px 8px rgba(168, 50, 72, 0.2));
+            }
         }
 
         @keyframes titleGlow {
-            0%, 100% { filter: drop-shadow(0 2px 8px rgba(168, 50, 72, 0.2)); }
-            50% { filter: drop-shadow(0 2px 16px rgba(168, 50, 72, 0.4)); }
+
+            0%,
+            100% {
+                filter: drop-shadow(0 2px 8px rgba(168, 50, 72, 0.2));
+            }
+
+            50% {
+                filter: drop-shadow(0 2px 16px rgba(168, 50, 72, 0.4));
+            }
         }
 
-        .name {
+        .combined-message {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 500;
+            color: #B22222;
+            margin-top: 25px;
+            opacity: 0;
+            animation: messageFade 1.5s ease-out 2.2s forwards, messageFloat 4s ease-in-out 3.8s infinite;
+            letter-spacing: 1px;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .name-highlight {
             font-family: 'Cinzel Decorative', serif;
-            font-size: 62px;
+            font-size: 1.3em;
             font-weight: 700;
-            letter-spacing: 8px;
-            background: linear-gradient(135deg, #C84858 0%, #B83848 20%, #A02838 40%, #B84050 60%, #D05868 80%, #C84858 100%);
+            font-style: normal;
+            display: inline-block;
+            margin-left: 6px;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #C41E3A 0%, #E60023 20%, #FF2D55 40%, #D4143A 60%, #B22222 80%, #C41E3A 100%);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: nameReveal 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.5s forwards, gradient-shift 4s ease 2.9s infinite, nameGlow 4s ease-in-out 2.9s infinite;
-            opacity: 0;
-            filter: drop-shadow(0 3px 8px rgba(168, 50, 72, 0.25));
-        }
-
-        @keyframes nameReveal {
-            0% { opacity: 0; letter-spacing: 30px; filter: blur(12px); transform: scale(0.6); }
-            40% { opacity: 0.7; letter-spacing: 12px; filter: blur(3px); transform: scale(1.05); }
-            70% { opacity: 1; letter-spacing: 6px; filter: blur(0); transform: scale(0.98); }
-            100% { opacity: 1; letter-spacing: 8px; filter: blur(0); transform: scale(1); }
-        }
-
-        @keyframes nameGlow {
-            0%, 100% { filter: drop-shadow(0 3px 8px rgba(168, 50, 72, 0.25)); }
-            50% { filter: drop-shadow(0 3px 20px rgba(168, 50, 72, 0.5)); }
-        }
-
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .message {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 21px;
-            font-weight: 500;
-            color: #9B4858;
-            margin-top: 22px;
-            opacity: 0;
-            animation: messageFade 1.5s ease-out 2.3s forwards, messageFloat 4s ease-in-out 3.8s infinite;
-            letter-spacing: 2px;
-            font-style: italic;
+            filter: drop-shadow(0 2px 4px rgba(220, 20, 60, 0.25));
+            animation: gradient-shift 4s ease 2s infinite, nameGlow 4s ease-in-out 2s infinite;
         }
 
         @keyframes messageFade {
-            0% { opacity: 0; transform: translateY(20px); letter-spacing: 8px; }
-            60% { opacity: 1; letter-spacing: 1px; }
-            80% { transform: translateY(-3px); }
-            100% { opacity: 1; transform: translateY(0); letter-spacing: 2px; }
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            60% {
+                opacity: 1;
+            }
+
+            80% {
+                transform: translateY(-2px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
+        @keyframes nameGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 3px 8px rgba(168, 50, 72, 0.25));
+            }
+
+            50% {
+                filter: drop-shadow(0 3px 20px rgba(168, 50, 72, 0.5));
+            }
+        }
+
+        @keyframes gradient-shift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+
+
         @keyframes messageFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-4px);
+            }
         }
 
         @keyframes fadeIn {
-            to { opacity: 1; }
+            to {
+                opacity: 1;
+            }
         }
 
         /* SVG Corazones flotantes */
@@ -202,12 +359,15 @@
                 transform: translateY(100vh) rotate(-15deg) scale(0.8);
                 opacity: 0;
             }
+
             10% {
                 opacity: 1;
             }
+
             90% {
                 opacity: 1;
             }
+
             100% {
                 transform: translateY(-150px) rotate(15deg) scale(1);
                 opacity: 0;
@@ -228,24 +388,52 @@
         }
 
         @keyframes swoopIn {
-            from { opacity: 0; transform: rotate(-3deg) translateY(80px) scale(0.5); filter: blur(4px); }
-            60% { transform: rotate(-4deg) translateY(-8px) scale(1.04); filter: blur(0); }
-            80% { transform: rotate(-2deg) translateY(3px) scale(0.98); }
-            to { opacity: 1; transform: rotate(-3deg) translateY(0) scale(1); filter: blur(0); }
+            from {
+                opacity: 0;
+                transform: rotate(-3deg) translateY(80px) scale(0.5);
+                filter: blur(4px);
+            }
+
+            60% {
+                transform: rotate(-4deg) translateY(-8px) scale(1.04);
+                filter: blur(0);
+            }
+
+            80% {
+                transform: rotate(-2deg) translateY(3px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: rotate(-3deg) translateY(0) scale(1);
+                filter: blur(0);
+            }
         }
 
         /* Imagen de gatito y perrito */
         .cute-image-container {
             margin-top: 20px;
             pointer-events: none;
-            animation: swoopIn 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.8s forwards, polaroidFloat 5s ease-in-out 4.2s infinite;
             opacity: 0;
             position: relative;
         }
 
+        /* Clase para iniciar animaciones controladas por JS */
+        .cute-image-container.animate {
+            animation: swoopIn 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0s forwards, polaroidFloat 5s ease-in-out 1.4s infinite;
+            pointer-events: auto;
+        }
+
         @keyframes polaroidFloat {
-            0%, 100% { transform: rotate(-3deg) translateY(0); }
-            50% { transform: rotate(-2deg) translateY(-5px); }
+
+            0%,
+            100% {
+                transform: rotate(-3deg) translateY(0);
+            }
+
+            50% {
+                transform: rotate(-2deg) translateY(-5px);
+            }
         }
 
         .cute-image-frame {
@@ -262,9 +450,12 @@
         .cute-image-frame::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             border-radius: 3px;
-            background: linear-gradient(145deg, rgba(255,255,255,0.6) 0%, transparent 40%, rgba(0,0,0,0.03) 100%);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.6) 0%, transparent 40%, rgba(0, 0, 0, 0.03) 100%);
             pointer-events: none;
         }
 
@@ -274,17 +465,31 @@
             top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 10;
+            z-index: 60;
             width: 24px;
             height: 24px;
             opacity: 0;
-            animation: pushpinDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 3.5s forwards;
+        }
+
+        .cute-image-container.animate .pushpin {
+            animation: pushpinDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s forwards;
         }
 
         @keyframes pushpinDrop {
-            0% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.3); }
-            60% { opacity: 1; transform: translateX(-50%) translateY(3px) scale(1.1); }
-            100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-30px) scale(0.3);
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(3px) scale(1.1);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
         }
 
         .pushpin-head {
@@ -332,15 +537,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            justify-content: center;
             opacity: 0;
-            animation: captionWrite 1s ease-out 3.8s forwards;
+        }
+
+        .cute-image-container.animate .cute-image-caption {
+            animation: captionWrite 1s ease-out 1.0s forwards;
         }
 
         @keyframes captionWrite {
-            0% { opacity: 0; transform: scale(0.5) rotate(-5deg); }
-            50% { opacity: 1; transform: scale(1.1) rotate(2deg); }
-            70% { transform: scale(0.95) rotate(-1deg); }
-            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-5deg);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1) rotate(2deg);
+            }
+
+            70% {
+                transform: scale(0.95) rotate(-1deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         .cute-image {
@@ -348,6 +571,17 @@
             max-width: 60vw;
             border-radius: 2px;
             display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 50;
+            pointer-events: auto;
+            /* Forzar interactividad */
+        }
+
+        .cute-image:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
         }
 
         /* Corazones flotantes alrededor de la imagen */
@@ -362,52 +596,192 @@
         }
 
         @keyframes floatHeart1 {
-            0% { transform: translateY(0) scale(0.5); opacity: 0; }
-            20% { opacity: 0.8; transform: translateY(-8px) scale(1); }
-            80% { opacity: 0.6; transform: translateY(-40px) scale(1.1); }
-            100% { transform: translateY(-55px) scale(0.7); opacity: 0; }
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.8;
+                transform: translateY(-8px) scale(1);
+            }
+
+            80% {
+                opacity: 0.6;
+                transform: translateY(-40px) scale(1.1);
+            }
+
+            100% {
+                transform: translateY(-55px) scale(0.7);
+                opacity: 0;
+            }
         }
+
         @keyframes floatHeart2 {
-            0% { transform: translateY(0) scale(0.4) rotate(-10deg); opacity: 0; }
-            25% { opacity: 0.7; transform: translateY(-12px) scale(0.9) rotate(5deg); }
-            75% { opacity: 0.5; transform: translateY(-45px) scale(1) rotate(-5deg); }
-            100% { transform: translateY(-60px) scale(0.6) rotate(10deg); opacity: 0; }
+            0% {
+                transform: translateY(0) scale(0.4) rotate(-10deg);
+                opacity: 0;
+            }
+
+            25% {
+                opacity: 0.7;
+                transform: translateY(-12px) scale(0.9) rotate(5deg);
+            }
+
+            75% {
+                opacity: 0.5;
+                transform: translateY(-45px) scale(1) rotate(-5deg);
+            }
+
+            100% {
+                transform: translateY(-60px) scale(0.6) rotate(10deg);
+                opacity: 0;
+            }
         }
+
         @keyframes floatHeart3 {
-            0% { transform: translateY(0) scale(0.5) rotate(8deg); opacity: 0; }
-            15% { opacity: 0.75; transform: translateY(-6px) scale(1.05) rotate(-3deg); }
-            85% { opacity: 0.5; transform: translateY(-50px) scale(1.1) rotate(6deg); }
-            100% { transform: translateY(-65px) scale(0.65) rotate(-8deg); opacity: 0; }
+            0% {
+                transform: translateY(0) scale(0.5) rotate(8deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.75;
+                transform: translateY(-6px) scale(1.05) rotate(-3deg);
+            }
+
+            85% {
+                opacity: 0.5;
+                transform: translateY(-50px) scale(1.1) rotate(6deg);
+            }
+
+            100% {
+                transform: translateY(-65px) scale(0.65) rotate(-8deg);
+                opacity: 0;
+            }
         }
+
         @keyframes floatHeart4 {
-            0% { transform: translateY(0) scale(0.6); opacity: 0; }
-            20% { opacity: 0.7; transform: translateY(-10px) scale(1); }
-            70% { opacity: 0.4; transform: translateY(-35px) scale(0.9); }
-            100% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+            0% {
+                transform: translateY(0) scale(0.6);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.7;
+                transform: translateY(-10px) scale(1);
+            }
+
+            70% {
+                opacity: 0.4;
+                transform: translateY(-35px) scale(0.9);
+            }
+
+            100% {
+                transform: translateY(-50px) scale(0.5);
+                opacity: 0;
+            }
         }
+
         @keyframes floatHeart5 {
-            0% { transform: translateY(0) scale(0.3) rotate(-5deg); opacity: 0; }
-            30% { opacity: 0.65; transform: translateY(-15px) scale(0.85) rotate(8deg); }
-            80% { opacity: 0.4; transform: translateY(-42px) scale(1) rotate(-3deg); }
-            100% { transform: translateY(-58px) scale(0.6) rotate(5deg); opacity: 0; }
+            0% {
+                transform: translateY(0) scale(0.3) rotate(-5deg);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 0.65;
+                transform: translateY(-15px) scale(0.85) rotate(8deg);
+            }
+
+            80% {
+                opacity: 0.4;
+                transform: translateY(-42px) scale(1) rotate(-3deg);
+            }
+
+            100% {
+                transform: translateY(-58px) scale(0.6) rotate(5deg);
+                opacity: 0;
+            }
         }
 
         /* Corazones exteriores - distribuidos alrededor del marco */
-        .img-heart-1 { top: 5%; left: -22px; animation: floatHeart1 3.5s ease-in-out infinite; }
-        .img-heart-2 { top: 35%; right: -24px; animation: floatHeart2 4s ease-in-out infinite 1.2s; }
-        .img-heart-3 { top: -12%; left: 40%; animation: floatHeart3 3s ease-in-out infinite 2.5s; }
-        .img-heart-4 { top: 55%; left: -18px; animation: floatHeart4 3.8s ease-in-out infinite 0.7s; }
-        .img-heart-5 { top: 65%; right: -16px; animation: floatHeart5 4.2s ease-in-out infinite 1.8s; }
+        .img-heart-1 {
+            top: 5%;
+            left: -22px;
+            animation: floatHeart1 3.5s ease-in-out infinite;
+        }
+
+        .img-heart-2 {
+            top: 35%;
+            right: -24px;
+            animation: floatHeart2 4s ease-in-out infinite 1.2s;
+        }
+
+        .img-heart-3 {
+            top: -12%;
+            left: 40%;
+            animation: floatHeart3 3s ease-in-out infinite 2.5s;
+        }
+
+        .img-heart-4 {
+            top: 55%;
+            left: -18px;
+            animation: floatHeart4 3.8s ease-in-out infinite 0.7s;
+        }
+
+        .img-heart-5 {
+            top: 65%;
+            right: -16px;
+            animation: floatHeart5 4.2s ease-in-out infinite 1.8s;
+        }
 
         /* Corazones interiores (flotando sobre la imagen) */
-        .img-heart-inner { z-index: 2; }
-        .img-heart-6 { top: -8%; left: 15%; animation: floatHeart2 3.2s ease-in-out infinite 0.5s; }
-        .img-heart-7 { top: -10%; right: 10%; animation: floatHeart1 3.8s ease-in-out infinite 2s; }
-        .img-heart-8 { top: 80%; left: 10%; animation: floatHeart3 4.5s ease-in-out infinite 1s; }
-        .img-heart-9 { top: 82%; right: 8%; animation: floatHeart5 3.5s ease-in-out infinite 3s; }
-        .img-heart-10 { top: 25%; left: -26px; animation: floatHeart4 4s ease-in-out infinite 0.3s; }
-        .img-heart-11 { top: 85%; left: 45%; animation: floatHeart1 3.3s ease-in-out infinite 1.5s; }
-        .img-heart-12 { top: -6%; left: 65%; animation: floatHeart2 4.2s ease-in-out infinite 2.8s; }
+        .img-heart-inner {
+            z-index: 2;
+        }
+
+        .img-heart-6 {
+            top: -8%;
+            left: 15%;
+            animation: floatHeart2 3.2s ease-in-out infinite 0.5s;
+        }
+
+        .img-heart-7 {
+            top: -10%;
+            right: 10%;
+            animation: floatHeart1 3.8s ease-in-out infinite 2s;
+        }
+
+        .img-heart-8 {
+            top: 80%;
+            left: 10%;
+            animation: floatHeart3 4.5s ease-in-out infinite 1s;
+        }
+
+        .img-heart-9 {
+            top: 82%;
+            right: 8%;
+            animation: floatHeart5 3.5s ease-in-out infinite 3s;
+        }
+
+        .img-heart-10 {
+            top: 25%;
+            left: -26px;
+            animation: floatHeart4 4s ease-in-out infinite 0.3s;
+        }
+
+        .img-heart-11 {
+            top: 85%;
+            left: 45%;
+            animation: floatHeart1 3.3s ease-in-out infinite 1.5s;
+        }
+
+        .img-heart-12 {
+            top: -6%;
+            left: 65%;
+            animation: floatHeart2 4.2s ease-in-out infinite 2.8s;
+        }
 
         @media (max-width: 600px) {
             .cute-image {
@@ -426,7 +800,9 @@
                 font-size: 18px;
             }
 
-            .img-heart { transform: scale(0.7); }
+            .img-heart {
+                transform: scale(0.7);
+            }
         }
 
         /* Boton de descarga */
@@ -498,8 +874,15 @@
                 transform: translateY(0) translateX(0) scale(1);
                 opacity: 0;
             }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
             100% {
                 transform: translateY(-30vh) translateX(20px) scale(1.1);
                 opacity: 0;
@@ -528,15 +911,17 @@
                 margin-bottom: 3vw;
             }
 
-            .name {
-                font-size: 12vw;
-                letter-spacing: 1.5vw;
+            .combined-message {
+                font-size: 5vw;
+                padding: 0 10px;
+                margin-top: 6vw;
             }
 
-            .message {
-                font-size: 4.5vw;
-                margin-top: 4vw;
-                letter-spacing: 1px;
+            .name-highlight {
+                font-size: 1.3em;
+                display: block;
+                margin-top: 2vw;
+                margin-left: 0;
             }
 
             .date {
@@ -566,22 +951,19 @@
                 font-size: 5.5vw;
             }
 
-            .name {
-                font-size: 7vw;
-                letter-spacing: 6px;
-            }
-
-            .message {
-                font-size: 2.5vw;
+            .combined-message {
+                font-size: 3vw;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Orbes bokeh de fondo -->
     <div class="bokeh-container" id="bokeh"></div>
 
-    <canvas id="matrix-canvas"></canvas>
+    <!-- <canvas id="matrix-canvas"></canvas> -->
+    <div id="petals-container"></div>
 
     <div class="floating-hearts" id="floating-hearts"></div>
 
@@ -591,184 +973,247 @@
             <!-- Corazon 3D tipo globo cromado con efecto burbuja de cristal -->
             <svg class="heart-svg" viewBox="0 0 100 100">
                 <defs>
-                    <!-- Gradiente base rosa-dorado metalico -->
+                    <!-- Gradiente base ROJO intenso (Blanca's Favorite) -->
                     <radialGradient id="bubbleBase" cx="50%" cy="55%" r="55%" fx="45%" fy="60%">
-                        <stop offset="0%" style="stop-color:#F0C0A8"/>
-                        <stop offset="12%" style="stop-color:#E8A898"/>
-                        <stop offset="25%" style="stop-color:#E09088"/>
-                        <stop offset="38%" style="stop-color:#DA7B90"/>
-                        <stop offset="50%" style="stop-color:#D4889C"/>
-                        <stop offset="62%" style="stop-color:#D8A0A0"/>
-                        <stop offset="72%" style="stop-color:#DDB89C"/>
-                        <stop offset="82%" style="stop-color:#D4B8B0"/>
-                        <stop offset="92%" style="stop-color:#C8C0D0"/>
-                        <stop offset="100%" style="stop-color:#D0D0E0"/>
+                        <stop offset="0%" style="stop-color:#FFC0CB" />
+                        <stop offset="12%" style="stop-color:#FF85A1" />
+                        <stop offset="25%" style="stop-color:#FF5C7F" />
+                        <stop offset="38%" style="stop-color:#FF2E63" />
+                        <stop offset="50%" style="stop-color:#E60023" />
+                        <stop offset="62%" style="stop-color:#D4143A" />
+                        <stop offset="72%" style="stop-color:#C41E3A" />
+                        <stop offset="82%" style="stop-color:#B22222" />
+                        <stop offset="92%" style="stop-color:#990012" />
+                        <stop offset="100%" style="stop-color:#800000" />
                     </radialGradient>
 
-                    <!-- Capa de profundidad magenta/rosa intenso en la parte inferior -->
+                    <!-- Capa de profundidad Rojo Oscuro -->
                     <linearGradient id="depthPink" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#DA7B90; stop-opacity:0"/>
-                        <stop offset="45%" style="stop-color:#C85880; stop-opacity:0.25"/>
-                        <stop offset="70%" style="stop-color:#B84878; stop-opacity:0.5"/>
-                        <stop offset="100%" style="stop-color:#A03868; stop-opacity:0.45"/>
+                        <stop offset="0%" style="stop-color:#FF2E63; stop-opacity:0" />
+                        <stop offset="45%" style="stop-color:#DC143C; stop-opacity:0.3" />
+                        <stop offset="70%" style="stop-color:#B22222; stop-opacity:0.55" />
+                        <stop offset="100%" style="stop-color:#8B0000; stop-opacity:0.5" />
                     </linearGradient>
 
                     <!-- Reflejo dorado/champagne en zona media -->
                     <linearGradient id="goldShimmer" x1="20%" y1="0%" x2="80%" y2="100%">
-                        <stop offset="0%" style="stop-color:#F0D8B0; stop-opacity:0"/>
-                        <stop offset="20%" style="stop-color:#E8C8A0; stop-opacity:0.25"/>
-                        <stop offset="40%" style="stop-color:#DDB888; stop-opacity:0.35"/>
-                        <stop offset="55%" style="stop-color:#D4A880; stop-opacity:0.3"/>
-                        <stop offset="70%" style="stop-color:#DCBC98; stop-opacity:0.2"/>
-                        <stop offset="100%" style="stop-color:#E8D0B0; stop-opacity:0"/>
+                        <stop offset="0%" style="stop-color:#F0D8B0; stop-opacity:0" />
+                        <stop offset="20%" style="stop-color:#E8C8A0; stop-opacity:0.25" />
+                        <stop offset="40%" style="stop-color:#DDB888; stop-opacity:0.35" />
+                        <stop offset="55%" style="stop-color:#D4A880; stop-opacity:0.3" />
+                        <stop offset="70%" style="stop-color:#DCBC98; stop-opacity:0.2" />
+                        <stop offset="100%" style="stop-color:#E8D0B0; stop-opacity:0" />
                     </linearGradient>
 
                     <!-- Reflejo superior plateado/azulado suave -->
                     <linearGradient id="topSilver" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#E0E8F4; stop-opacity:0.75"/>
-                        <stop offset="12%" style="stop-color:#D4DCE8; stop-opacity:0.6"/>
-                        <stop offset="30%" style="stop-color:#D8D0DC; stop-opacity:0.35"/>
-                        <stop offset="55%" style="stop-color:#E0C8C0; stop-opacity:0.1"/>
-                        <stop offset="100%" style="stop-color:#FFFFFF; stop-opacity:0"/>
+                        <stop offset="0%" style="stop-color:#E0E8F4; stop-opacity:0.75" />
+                        <stop offset="12%" style="stop-color:#D4DCE8; stop-opacity:0.6" />
+                        <stop offset="30%" style="stop-color:#D8D0DC; stop-opacity:0.35" />
+                        <stop offset="55%" style="stop-color:#E0C8C0; stop-opacity:0.1" />
+                        <stop offset="100%" style="stop-color:#FFFFFF; stop-opacity:0" />
                     </linearGradient>
 
                     <!-- Brillo burbuja principal lobulo izquierdo (tinte dorado calido) -->
                     <radialGradient id="bubbleHL_L" cx="50%" cy="40%" r="50%">
-                        <stop offset="0%" style="stop-color:#FFFFFF; stop-opacity:0.98"/>
-                        <stop offset="15%" style="stop-color:#FFFDF8; stop-opacity:0.92"/>
-                        <stop offset="30%" style="stop-color:#FFF8E8; stop-opacity:0.75"/>
-                        <stop offset="50%" style="stop-color:#F0E8D0; stop-opacity:0.5"/>
-                        <stop offset="70%" style="stop-color:#E0D4C0; stop-opacity:0.25"/>
-                        <stop offset="100%" style="stop-color:#D0C0A8; stop-opacity:0"/>
+                        <stop offset="0%" style="stop-color:#FFFFFF; stop-opacity:0.98" />
+                        <stop offset="15%" style="stop-color:#FFFDF8; stop-opacity:0.92" />
+                        <stop offset="30%" style="stop-color:#FFF8E8; stop-opacity:0.75" />
+                        <stop offset="50%" style="stop-color:#F0E8D0; stop-opacity:0.5" />
+                        <stop offset="70%" style="stop-color:#E0D4C0; stop-opacity:0.25" />
+                        <stop offset="100%" style="stop-color:#D0C0A8; stop-opacity:0" />
                     </radialGradient>
 
                     <!-- Brillo burbuja principal lobulo derecho (tinte dorado calido) -->
                     <radialGradient id="bubbleHL_R" cx="50%" cy="40%" r="50%">
-                        <stop offset="0%" style="stop-color:#FFFFFF; stop-opacity:0.95"/>
-                        <stop offset="18%" style="stop-color:#FFFDF8; stop-opacity:0.85"/>
-                        <stop offset="35%" style="stop-color:#FFF8E8; stop-opacity:0.6"/>
-                        <stop offset="55%" style="stop-color:#F0E8D0; stop-opacity:0.35"/>
-                        <stop offset="100%" style="stop-color:#D0C0A8; stop-opacity:0"/>
+                        <stop offset="0%" style="stop-color:#FFFFFF; stop-opacity:0.95" />
+                        <stop offset="18%" style="stop-color:#FFFDF8; stop-opacity:0.85" />
+                        <stop offset="35%" style="stop-color:#FFF8E8; stop-opacity:0.6" />
+                        <stop offset="55%" style="stop-color:#F0E8D0; stop-opacity:0.35" />
+                        <stop offset="100%" style="stop-color:#D0C0A8; stop-opacity:0" />
                     </radialGradient>
 
                     <!-- Borde luminoso dorado sutil -->
                     <radialGradient id="rimGlow" cx="50%" cy="50%" r="50%">
-                        <stop offset="82%" style="stop-color:#FFFFFF; stop-opacity:0"/>
-                        <stop offset="92%" style="stop-color:#F8E8D0; stop-opacity:0.15"/>
-                        <stop offset="100%" style="stop-color:#E8D8B8; stop-opacity:0.35"/>
+                        <stop offset="82%" style="stop-color:#FFFFFF; stop-opacity:0" />
+                        <stop offset="92%" style="stop-color:#F8E8D0; stop-opacity:0.15" />
+                        <stop offset="100%" style="stop-color:#E8D8B8; stop-opacity:0.35" />
                     </radialGradient>
 
                     <!-- Sombra inferior -->
                     <linearGradient id="bottomShade" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="60%" style="stop-color:#8B4060; stop-opacity:0"/>
-                        <stop offset="85%" style="stop-color:#8B4060; stop-opacity:0.12"/>
-                        <stop offset="100%" style="stop-color:#6B3050; stop-opacity:0.25"/>
+                        <stop offset="60%" style="stop-color:#8B4060; stop-opacity:0" />
+                        <stop offset="85%" style="stop-color:#8B4060; stop-opacity:0.12" />
+                        <stop offset="100%" style="stop-color:#6B3050; stop-opacity:0.25" />
                     </linearGradient>
 
                     <!-- Clip path del corazon -->
                     <clipPath id="heartClip">
-                        <path d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"/>
+                        <path
+                            d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z" />
                     </clipPath>
 
                     <!-- Filtro de desenfoque para suavidad -->
                     <filter id="softGlow">
-                        <feGaussianBlur stdDeviation="1.5" result="blur"/>
-                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                        <feGaussianBlur stdDeviation="1.5" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
                     </filter>
                 </defs>
 
                 <!-- Sombra en el suelo -->
                 <ellipse cx="50" cy="92" rx="25" ry="3.5" fill="rgba(139, 69, 87, 0.18)">
-                    <animate attributeName="rx" values="25;27;25" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="rx" values="25;27;25" dur="2s" repeatCount="indefinite" />
                 </ellipse>
 
                 <!-- Capa base - gradiente rosa a azul -->
-                <path d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
-                      fill="url(#bubbleBase)"/>
+                <path
+                    d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
+                    fill="url(#bubbleBase)" />
 
                 <!-- Capa de profundidad rosa -->
-                <path d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
-                      fill="url(#depthPink)" clip-path="url(#heartClip)"/>
+                <path
+                    d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
+                    fill="url(#depthPink)" clip-path="url(#heartClip)" />
 
                 <!-- Capa dorada/champagne metalica -->
-                <path d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
-                      fill="url(#goldShimmer)" clip-path="url(#heartClip)"/>
+                <path
+                    d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
+                    fill="url(#goldShimmer)" clip-path="url(#heartClip)" />
 
                 <!-- Reflejo superior plateado/azulado -->
-                <path d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
-                      fill="url(#topSilver)" clip-path="url(#heartClip)"/>
+                <path
+                    d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
+                    fill="url(#topSilver)" clip-path="url(#heartClip)" />
 
                 <!-- Sombra inferior -->
-                <path d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
-                      fill="url(#bottomShade)"/>
+                <path
+                    d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
+                    fill="url(#bottomShade)" />
 
                 <!-- Borde luminoso -->
-                <path d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
-                      fill="url(#rimGlow)"/>
+                <path
+                    d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
+                    fill="url(#rimGlow)" />
 
                 <!-- Reflejo burbuja grande - lobulo izquierdo -->
-                <ellipse cx="26" cy="26" rx="15" ry="13" fill="url(#bubbleHL_L)" transform="rotate(-8, 26, 26)" opacity="0.9"/>
+                <ellipse cx="26" cy="26" rx="15" ry="13" fill="url(#bubbleHL_L)" transform="rotate(-8, 26, 26)"
+                    opacity="0.9" />
 
                 <!-- Reflejo burbuja grande - lobulo derecho -->
-                <ellipse cx="74" cy="26" rx="14" ry="12" fill="url(#bubbleHL_R)" transform="rotate(8, 74, 26)" opacity="0.85"/>
+                <ellipse cx="74" cy="26" rx="14" ry="12" fill="url(#bubbleHL_R)" transform="rotate(8, 74, 26)"
+                    opacity="0.85" />
 
                 <!-- Highlight concentrado izquierdo (punto de luz fuerte) -->
-                <ellipse cx="22" cy="22" rx="7" ry="5.5" fill="rgba(255,255,255,0.92)" transform="rotate(-12, 22, 22)"/>
-                <ellipse cx="20" cy="20" rx="4" ry="3" fill="rgba(255,255,255,0.98)" transform="rotate(-12, 20, 20)"/>
+                <ellipse cx="22" cy="22" rx="7" ry="5.5" fill="rgba(255,255,255,0.92)"
+                    transform="rotate(-12, 22, 22)" />
+                <ellipse cx="20" cy="20" rx="4" ry="3" fill="rgba(255,255,255,0.98)" transform="rotate(-12, 20, 20)" />
 
                 <!-- Highlight concentrado derecho -->
-                <ellipse cx="78" cy="22" rx="6" ry="5" fill="rgba(255,255,255,0.88)" transform="rotate(12, 78, 22)"/>
-                <ellipse cx="80" cy="20" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.95)" transform="rotate(12, 80, 20)"/>
+                <ellipse cx="78" cy="22" rx="6" ry="5" fill="rgba(255,255,255,0.88)" transform="rotate(12, 78, 22)" />
+                <ellipse cx="80" cy="20" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.95)"
+                    transform="rotate(12, 80, 20)" />
 
                 <!-- Mini burbujas decorativas de reflejo -->
-                <circle cx="18" cy="16" r="2" fill="rgba(255,255,255,0.95)"/>
-                <circle cx="15" cy="20" r="1.2" fill="rgba(255,255,255,0.85)"/>
-                <circle cx="82" cy="16" r="1.8" fill="rgba(255,255,255,0.9)"/>
-                <circle cx="85" cy="20" r="1" fill="rgba(255,255,255,0.8)"/>
+                <circle cx="18" cy="16" r="2" fill="rgba(255,255,255,0.95)" />
+                <circle cx="15" cy="20" r="1.2" fill="rgba(255,255,255,0.85)" />
+                <circle cx="82" cy="16" r="1.8" fill="rgba(255,255,255,0.9)" />
+                <circle cx="85" cy="20" r="1" fill="rgba(255,255,255,0.8)" />
 
                 <!-- Burbujita flotante izquierda -->
-                <circle cx="12" cy="35" r="4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-                <circle cx="12" cy="35" r="4" fill="rgba(200,210,230,0.08)"/>
-                <circle cx="10.5" cy="33.5" r="1.2" fill="rgba(255,255,255,0.6)"/>
+                <circle cx="12" cy="35" r="4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+                <circle cx="12" cy="35" r="4" fill="rgba(200,210,230,0.08)" />
+                <circle cx="10.5" cy="33.5" r="1.2" fill="rgba(255,255,255,0.6)" />
 
                 <!-- Burbujita flotante derecha -->
-                <circle cx="90" cy="32" r="3.5" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
-                <circle cx="90" cy="32" r="3.5" fill="rgba(200,210,230,0.08)"/>
-                <circle cx="88.8" cy="30.8" r="1" fill="rgba(255,255,255,0.55)"/>
+                <circle cx="90" cy="32" r="3.5" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+                <circle cx="90" cy="32" r="3.5" fill="rgba(200,210,230,0.08)" />
+                <circle cx="88.8" cy="30.8" r="1" fill="rgba(255,255,255,0.55)" />
 
                 <!-- Reflejo ambiental sutil centro -->
-                <ellipse cx="50" cy="48" rx="8" ry="10" fill="rgba(200, 184, 220, 0.08)"/>
+                <ellipse cx="50" cy="48" rx="8" ry="10" fill="rgba(200, 184, 220, 0.08)" />
 
                 <!-- Borde sutil brillante dorado de contorno -->
-                <path d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
-                      fill="none" stroke="rgba(232,208,176,0.3)" stroke-width="0.6"/>
+                <path
+                    d="M50 85 Q20 70, 8 45 Q2 30, 8 18 Q15 5, 28 5 Q40 5, 50 20 Q60 5, 72 5 Q85 5, 92 18 Q98 30, 92 45 Q80 70, 50 85Z"
+                    fill="none" stroke="rgba(232,208,176,0.3)" stroke-width="0.6" />
             </svg>
         </div>
-        <h2 class="name">BLANCA</h2>
-        <p class="message">Con todo mi amor para ti</p>
+        <p class="combined-message">
+            Con todo mi cariño para ti, <span class="name-highlight">BLANCA</span>
+        </p>
         <div class="cute-image-container">
             <div class="cute-image-frame">
                 <div class="pushpin">
                     <div class="pushpin-head"></div>
                     <div class="pushpin-needle"></div>
                 </div>
-                <img class="cute-image" src="gatito_perrito.png" alt="Gatito y perrito bajo la lluvia">
+                <a href="gatito_perrito.png" download="Para_ti_con_todo_mi_amor.png" onclick="event.stopPropagation()">
+                    <img class="cute-image" src="gatito_perrito.png" alt="Gatito y perrito bajo la lluvia">
+                </a>
                 <div class="cute-image-caption">Te quiero</div>
             </div>
             <!-- Corazones hand-drawn estilo variado alrededor de la imagen -->
-            <svg class="img-heart img-heart-1" width="20" height="20" viewBox="0 0 50 50"><path d="M25 44 C23 40 4 28 4 16 C4 8 10 3 16 6 C20 8 23 13 25 16 C27 12 30 7 35 5 C41 3 47 8 46 16 C45 28 27 40 25 44Z" fill="#ff6b8a"/></svg>
-            <svg class="img-heart img-heart-2" width="17" height="17" viewBox="0 0 50 50"><path d="M24 43 C22 39 5 30 3 18 C2 10 8 4 15 5 C19 6 22 10 24 14 C26 9 30 4 36 4 C43 4 48 11 46 19 C44 30 26 39 24 43Z" fill="#ff8fa8"/></svg>
-            <svg class="img-heart img-heart-3" width="14" height="14" viewBox="0 0 50 50"><path d="M26 45 C24 41 6 29 5 17 C4 9 9 3 16 5 C21 7 24 12 26 15 C28 11 32 6 37 4 C44 2 48 9 47 17 C46 29 28 41 26 45Z" fill="#ffaabb"/></svg>
-            <svg class="img-heart img-heart-4" width="16" height="16" viewBox="0 0 50 50"><path d="M25 46 C23 42 3 29 3 15 C3 7 9 2 17 5 C21 7 24 12 25 15 C26 11 29 5 34 3 C42 1 48 7 47 16 C46 29 27 42 25 46Z" fill="#C84858"/></svg>
-            <svg class="img-heart img-heart-5" width="12" height="12" viewBox="0 0 50 50"><path d="M24 42 C22 38 6 28 5 18 C4 11 9 5 14 6 C18 7 21 11 24 15 C27 10 31 6 36 5 C42 4 46 10 45 18 C44 28 26 38 24 42Z" fill="#ff6b8a"/></svg>
+            <svg class="img-heart img-heart-1" width="20" height="20" viewBox="0 0 50 50">
+                <path
+                    d="M25 44 C23 40 4 28 4 16 C4 8 10 3 16 6 C20 8 23 13 25 16 C27 12 30 7 35 5 C41 3 47 8 46 16 C45 28 27 40 25 44Z"
+                    fill="#ff6b8a" />
+            </svg>
+            <svg class="img-heart img-heart-2" width="17" height="17" viewBox="0 0 50 50">
+                <path
+                    d="M24 43 C22 39 5 30 3 18 C2 10 8 4 15 5 C19 6 22 10 24 14 C26 9 30 4 36 4 C43 4 48 11 46 19 C44 30 26 39 24 43Z"
+                    fill="#ff8fa8" />
+            </svg>
+            <svg class="img-heart img-heart-3" width="14" height="14" viewBox="0 0 50 50">
+                <path
+                    d="M26 45 C24 41 6 29 5 17 C4 9 9 3 16 5 C21 7 24 12 26 15 C28 11 32 6 37 4 C44 2 48 9 47 17 C46 29 28 41 26 45Z"
+                    fill="#ffaabb" />
+            </svg>
+            <svg class="img-heart img-heart-4" width="16" height="16" viewBox="0 0 50 50">
+                <path
+                    d="M25 46 C23 42 3 29 3 15 C3 7 9 2 17 5 C21 7 24 12 25 15 C26 11 29 5 34 3 C42 1 48 7 47 16 C46 29 27 42 25 46Z"
+                    fill="#C84858" />
+            </svg>
+            <svg class="img-heart img-heart-5" width="12" height="12" viewBox="0 0 50 50">
+                <path
+                    d="M24 42 C22 38 6 28 5 18 C4 11 9 5 14 6 C18 7 21 11 24 15 C27 10 31 6 36 5 C42 4 46 10 45 18 C44 28 26 38 24 42Z"
+                    fill="#ff6b8a" />
+            </svg>
             <!-- Corazones interiores hand-drawn -->
-            <svg class="img-heart img-heart-inner img-heart-6" width="16" height="16" viewBox="0 0 50 50"><path d="M25 43 C23 39 7 30 5 19 C4 11 8 4 14 4 C19 4 23 9 25 13 C27 8 31 3 37 3 C43 3 47 10 46 19 C45 30 27 39 25 43Z" fill="#ff2050"/></svg>
-            <svg class="img-heart img-heart-inner img-heart-7" width="13" height="13" viewBox="0 0 50 50"><path d="M26 44 C24 40 5 27 4 16 C3 8 10 3 16 6 C20 8 24 13 26 16 C28 12 31 6 36 4 C42 2 48 8 47 16 C46 27 28 40 26 44Z" fill="#ffffff" opacity="0.95"/></svg>
-            <svg class="img-heart img-heart-inner img-heart-8" width="18" height="18" viewBox="0 0 50 50"><path d="M24 45 C22 41 3 28 3 16 C3 8 8 3 15 5 C20 7 23 12 24 15 C25 11 28 5 34 3 C41 1 47 7 47 16 C47 28 26 41 24 45Z" fill="#e81040"/></svg>
-            <svg class="img-heart img-heart-inner img-heart-9" width="11" height="11" viewBox="0 0 50 50"><path d="M25 42 C23 38 6 29 5 19 C4 12 9 6 14 6 C18 6 22 10 25 14 C28 9 32 5 37 5 C43 5 47 12 46 19 C45 29 27 38 25 42Z" fill="#ff4070"/></svg>
-            <svg class="img-heart img-heart-inner img-heart-10" width="12" height="12" viewBox="0 0 50 50"><path d="M26 43 C24 39 7 28 6 17 C5 9 10 3 16 5 C20 7 24 12 26 16 C28 11 31 5 36 3 C42 1 47 8 46 17 C45 28 28 39 26 43Z" fill="#ffffff" opacity="0.9"/></svg>
-            <svg class="img-heart img-heart-inner img-heart-11" width="15" height="15" viewBox="0 0 50 50"><path d="M25 44 C23 40 4 27 3 15 C2 7 8 2 15 5 C20 8 23 13 25 16 C27 12 30 6 35 3 C42 1 48 7 48 15 C48 27 27 40 25 44Z" fill="#ff2050"/></svg>
-            <svg class="img-heart img-heart-inner img-heart-12" width="10" height="10" viewBox="0 0 50 50"><path d="M24 41 C22 37 5 28 4 18 C3 11 8 5 13 5 C17 5 21 9 24 13 C27 8 31 4 36 4 C42 4 46 11 45 18 C44 28 26 37 24 41Z" fill="#e81040"/></svg>
+            <svg class="img-heart img-heart-inner img-heart-6" width="16" height="16" viewBox="0 0 50 50">
+                <path
+                    d="M25 43 C23 39 7 30 5 19 C4 11 8 4 14 4 C19 4 23 9 25 13 C27 8 31 3 37 3 C43 3 47 10 46 19 C45 30 27 39 25 43Z"
+                    fill="#ff2050" />
+            </svg>
+            <svg class="img-heart img-heart-inner img-heart-7" width="13" height="13" viewBox="0 0 50 50">
+                <path
+                    d="M26 44 C24 40 5 27 4 16 C3 8 10 3 16 6 C20 8 24 13 26 16 C28 12 31 6 36 4 C42 2 48 8 47 16 C46 27 28 40 26 44Z"
+                    fill="#ffffff" opacity="0.95" />
+            </svg>
+            <svg class="img-heart img-heart-inner img-heart-8" width="18" height="18" viewBox="0 0 50 50">
+                <path
+                    d="M24 45 C22 41 3 28 3 16 C3 8 8 3 15 5 C20 7 23 12 24 15 C25 11 28 5 34 3 C41 1 47 7 47 16 C47 28 26 41 24 45Z"
+                    fill="#e81040" />
+            </svg>
+            <svg class="img-heart img-heart-inner img-heart-9" width="11" height="11" viewBox="0 0 50 50">
+                <path
+                    d="M25 42 C23 38 6 29 5 19 C4 12 9 6 14 6 C18 6 22 10 25 14 C28 9 32 5 37 5 C43 5 47 12 46 19 C45 29 27 38 25 42Z"
+                    fill="#ff4070" />
+            </svg>
+            <svg class="img-heart img-heart-inner img-heart-10" width="12" height="12" viewBox="0 0 50 50">
+                <path
+                    d="M26 43 C24 39 7 28 6 17 C5 9 10 3 16 5 C20 7 24 12 26 16 C28 11 31 5 36 3 C42 1 47 8 46 17 C45 28 28 39 26 43Z"
+                    fill="#ffffff" opacity="0.9" />
+            </svg>
+            <svg class="img-heart img-heart-inner img-heart-11" width="15" height="15" viewBox="0 0 50 50">
+                <path
+                    d="M25 44 C23 40 4 27 3 15 C2 7 8 2 15 5 C20 8 23 13 25 16 C27 12 30 6 35 3 C42 1 48 7 48 15 C48 27 27 40 25 44Z"
+                    fill="#ff2050" />
+            </svg>
+            <svg class="img-heart img-heart-inner img-heart-12" width="10" height="10" viewBox="0 0 50 50">
+                <path
+                    d="M24 41 C22 37 5 28 4 18 C3 11 8 5 13 5 C17 5 21 9 24 13 C27 8 31 4 36 4 C42 4 46 11 45 18 C44 28 26 37 24 41Z"
+                    fill="#e81040" />
+            </svg>
         </div>
     </div>
 
@@ -791,11 +1236,11 @@
         const bokehContainer = document.getElementById('bokeh');
         const orbCount = isMobile ? 8 : 14;
         const orbColors = [
-            'rgba(220, 180, 200, 0.25)',
-            'rgba(200, 170, 210, 0.2)',
-            'rgba(230, 200, 210, 0.18)',
-            'rgba(180, 160, 200, 0.22)',
-            'rgba(240, 210, 220, 0.15)',
+            'rgba(255, 150, 160, 0.25)',
+            'rgba(255, 100, 120, 0.2)',
+            'rgba(240, 128, 128, 0.18)',
+            'rgba(220, 20, 60, 0.12)',
+            'rgba(255, 182, 193, 0.2)',
         ];
 
         for (let i = 0; i < orbCount; i++) {
@@ -813,66 +1258,62 @@
         }
 
         // ========================================
-        // EFECTO MATRIX SUTIL
+        // EFECTO LLUVIA DE PÉTALOS (REEMPLAZA A MATRIX)
         // ========================================
+
+        // --- MATRIX ANTERIOR (Comentado) ---
+        /*
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
+        ... (código matrix omitido)
+        */
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+        const petalsContainer = document.getElementById('petals-container');
 
-        const elegantChars = ['♥', '♡', 'L', 'O', 'V', 'E', 'A', 'M', 'O', 'R', 'B', 'L', 'A', 'N', 'C', 'A', '.', '*', '~'];
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
 
-        const fontSize = isMobile ? 14 : 16;
-        const matrixSpacing = isMobile ? fontSize * 2 : fontSize;
-        let columns = Math.floor(canvas.width / matrixSpacing);
-        let drops = [];
+            // Randomización
+            const size = Math.random() * 12 + 8; // 8px a 20px
+            const left = Math.random() * 100;
+            const duration = Math.random() * 5 + 6; // 6s a 11s
+            const delay = Math.random() * 2;
 
-        function initDrops() {
-            columns = Math.floor(canvas.width / matrixSpacing);
-            drops = [];
-            for (let i = 0; i < columns; i++) {
-                drops[i] = Math.random() * -100;
-            }
-        }
-        initDrops();
-        window.addEventListener('resize', initDrops);
+            // Variaciones de color ROJO (Blanca's Favorite)
+            const variants = [
+                'linear-gradient(to bottom right, rgba(220, 20, 60, 0.9), rgba(178, 34, 34, 0.7))', // Crimson to FireBrick
+                'linear-gradient(to bottom right, rgba(255, 0, 0, 0.8), rgba(200, 0, 0, 0.6))',     // Pure Red
+                'linear-gradient(to bottom right, rgba(255, 99, 71, 0.9), rgba(205, 92, 92, 0.7))', // Tomato to IndianRed
+                'linear-gradient(to bottom right, rgba(139, 0, 0, 0.7), rgba(128, 0, 0, 0.6))',     // DarkRed
+                'linear-gradient(to bottom right, rgba(233, 30, 99, 0.85), rgba(194, 24, 91, 0.65))' // Pinkish Red backup
+            ];
 
-        const colors = [
-            'rgba(180, 60, 90, 0.85)',
-            'rgba(160, 80, 140, 0.75)',
-            'rgba(140, 60, 120, 0.7)',
-            'rgba(170, 50, 100, 0.8)',
-        ];
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size}px`;
+            petal.style.left = `${left}%`;
+            petal.style.background = variants[Math.floor(Math.random() * variants.length)];
+            petal.style.animationDuration = `${duration}s`;
+            petal.style.animationDelay = `${delay}s`;
 
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(208, 192, 224, 0.06)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Aleatorizar movimiento inicial (algunos rotan sentido horario, otros antihorario)
+            // Se puede hacer mas complejo con JS, pero el CSS keyframes ya da movimiento base
 
-            ctx.font = `${fontSize}px 'Cormorant Garamond', serif`;
+            petalsContainer.appendChild(petal);
 
-            for (let i = 0; i < drops.length; i++) {
-                const char = elegantChars[Math.floor(Math.random() * elegantChars.length)];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-
-                const x = i * matrixSpacing;
-                const y = drops[i] * fontSize;
-
-                ctx.fillStyle = color;
-                ctx.fillText(char, x, y);
-
-                if (y > canvas.height && Math.random() > 0.99) {
-                    drops[i] = 0;
-                }
-                drops[i] += 0.3;
-            }
+            // Limpieza DOM
+            setTimeout(() => {
+                petal.remove();
+            }, (duration + delay) * 1000 + 100);
         }
 
-        setInterval(drawMatrix, isMobile ? 120 : 80);
+        // Generar pétalos constantemente
+        setInterval(createPetal, isMobile ? 700 : 350);
+
+        // Crear iniciales
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createPetal, Math.random() * 1500);
+        }
 
         // ========================================
         // CORAZONES SVG METALICOS FLOTANTES
@@ -901,20 +1342,20 @@
             svg.innerHTML = `
                 <defs>
                     <radialGradient id="base${id}" cx="50%" cy="55%" r="55%" fx="45%" fy="60%">
-                        <stop offset="0%" style="stop-color:#F0C0A8"/>
-                        <stop offset="15%" style="stop-color:#E8A898"/>
-                        <stop offset="30%" style="stop-color:#E09088"/>
-                        <stop offset="42%" style="stop-color:#DA7B90"/>
-                        <stop offset="55%" style="stop-color:#D8A0A0"/>
-                        <stop offset="68%" style="stop-color:#DDB89C"/>
-                        <stop offset="80%" style="stop-color:#D4B8B0"/>
-                        <stop offset="92%" style="stop-color:#C8C0D0"/>
-                        <stop offset="100%" style="stop-color:#D0D0E0"/>
+                        <stop offset="0%" style="stop-color:#FFC0CB"/>
+                        <stop offset="15%" style="stop-color:#FF85A1"/>
+                        <stop offset="30%" style="stop-color:#FF5C7F"/>
+                        <stop offset="42%" style="stop-color:#FF2E63"/>
+                        <stop offset="55%" style="stop-color:#E60023"/>
+                        <stop offset="68%" style="stop-color:#D4143A"/>
+                        <stop offset="80%" style="stop-color:#C41E3A"/>
+                        <stop offset="92%" style="stop-color:#B22222"/>
+                        <stop offset="100%" style="stop-color:#990012"/>
                     </radialGradient>
                     <linearGradient id="depth${id}" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#DA7B90; stop-opacity:0"/>
-                        <stop offset="50%" style="stop-color:#C85880; stop-opacity:0.3"/>
-                        <stop offset="100%" style="stop-color:#A03868; stop-opacity:0.4"/>
+                        <stop offset="0%" style="stop-color:#FF2E63; stop-opacity:0"/>
+                        <stop offset="50%" style="stop-color:#DC143C; stop-opacity:0.35"/>
+                        <stop offset="100%" style="stop-color:#8B0000; stop-opacity:0.5"/>
                     </linearGradient>
                     <linearGradient id="gold${id}" x1="20%" y1="0%" x2="80%" y2="100%">
                         <stop offset="0%" style="stop-color:#F0D8B0; stop-opacity:0"/>
@@ -1115,6 +1556,79 @@
                 btn.classList.remove('downloading');
             });
         }
+
+        function downloadImage(e) {
+            // Detener propagación para evitar triggers no deseados
+            if (e) e.stopPropagation();
+
+            const img = document.querySelector('.cute-image');
+            const fileName = 'Para_ti_con_todo_mi_amor.png';
+
+            // Esperar a que la imagen esté completamente cargada
+            if (!img.complete) {
+                img.onload = performDownload;
+                return;
+            }
+
+            performDownload();
+
+            function performDownload() {
+                try {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+
+                    canvas.toBlob(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = fileName;
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+                        link.click();
+                        setTimeout(() => {
+                            document.body.removeChild(link);
+                            window.URL.revokeObjectURL(url);
+                        }, 100);
+                    }, 'image/png');
+                } catch (err) {
+                    console.error('Error:', err);
+                    alert('Error al descargar la imagen.');
+                }
+            }
+        }
+
+        // ========================================
+        // CONTROL DE CARGA DE IMAGEN
+        // ========================================
+        window.addEventListener('load', () => {
+            const img = document.querySelector('.cute-image');
+            const container = document.querySelector('.cute-image-container');
+            const minDelay = 3500; // Tiempo ajustado para la nueva secuencia ordenada
+
+            // Usamos performance.timing si está disponible para mayor precisión desde el inicio de la carga
+            const navigationStart = performance.timing.navigationStart;
+
+            function showImage() {
+                const now = Date.now();
+                const elapsed = now - navigationStart;
+                const remaining = Math.max(0, minDelay - elapsed);
+
+                setTimeout(() => {
+                    container.classList.add('animate');
+                }, remaining);
+            }
+
+            if (img.complete) {
+                showImage();
+            } else {
+                img.onload = showImage;
+                img.onerror = showImage; // Mostrar aunque falle para no romper el layout
+            }
+        });
     </script>
 </body>
+
 </html>
