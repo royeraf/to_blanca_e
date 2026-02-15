@@ -849,18 +849,86 @@
             }
         }
 
+        /* Wrapper del boton de musica con progreso */
+        .music-wrapper {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            width: 56px;
+            height: 56px;
+            opacity: 0;
+            animation: musicBtnReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) 3s forwards, musicBtnPulse 3s ease-in-out 4.5s infinite;
+        }
+
+        @keyframes musicBtnReveal {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px) scale(0.5);
+            }
+            60% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(-5px) scale(1.1);
+            }
+            80% {
+                transform: translateX(-50%) translateY(2px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+        }
+
+        @keyframes musicBtnPulse {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+                filter: drop-shadow(0 2px 8px rgba(168, 50, 72, 0.2));
+            }
+            50% {
+                transform: translateX(-50%) scale(1.06);
+                filter: drop-shadow(0 4px 16px rgba(168, 50, 72, 0.4));
+            }
+        }
+
+        .music-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 56px;
+            height: 56px;
+            transform: rotate(-90deg);
+        }
+
+        .music-progress-bg {
+            fill: none;
+            stroke: rgba(168, 50, 72, 0.15);
+            stroke-width: 3;
+        }
+
+        .music-progress-bar {
+            fill: none;
+            stroke: rgba(168, 50, 72, 0.6);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 157;
+            stroke-dashoffset: 157;
+            transition: stroke-dashoffset 0.3s ease;
+        }
+
         /* Boton de musica mute/unmute */
         .music-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 200;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 201;
             background: rgba(168, 50, 72, 0.15);
             border: 1px solid rgba(168, 50, 72, 0.3);
             color: #9B4858;
             font-size: 22px;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             cursor: pointer;
             backdrop-filter: blur(10px);
@@ -874,20 +942,101 @@
         .music-btn:hover {
             background: rgba(168, 50, 72, 0.25);
             border-color: rgba(168, 50, 72, 0.5);
-            transform: scale(1.1);
+            transform: translate(-50%, -50%) scale(1.1);
         }
 
         .music-btn:active {
-            transform: scale(0.95);
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        /* Corazones flotantes del boton de musica */
+        .music-heart {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            filter: drop-shadow(0 0 4px rgba(255, 107, 138, 0.5));
+        }
+
+        .music-wrapper.playing .music-heart {
+            animation-play-state: running;
+        }
+
+        .music-wrapper:not(.playing) .music-heart {
+            animation-play-state: paused;
+            opacity: 0 !important;
+        }
+
+        .mh-1 {
+            top: -8px;
+            left: -10px;
+            animation: mhFloat1 3s ease-in-out infinite;
+        }
+        .mh-2 {
+            top: -6px;
+            right: -8px;
+            animation: mhFloat2 3.5s ease-in-out infinite 0.8s;
+        }
+        .mh-3 {
+            top: 50%;
+            left: -14px;
+            animation: mhFloat3 4s ease-in-out infinite 1.5s;
+        }
+        .mh-4 {
+            top: 50%;
+            right: -12px;
+            animation: mhFloat4 3.2s ease-in-out infinite 0.4s;
+        }
+        .mh-5 {
+            bottom: -6px;
+            left: 50%;
+            animation: mhFloat5 3.8s ease-in-out infinite 2s;
+        }
+
+        @keyframes mhFloat1 {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.8; transform: translateY(-5px) scale(1); }
+            80% { opacity: 0.5; transform: translateY(-30px) scale(1.1); }
+            100% { transform: translateY(-40px) scale(0.6); opacity: 0; }
+        }
+        @keyframes mhFloat2 {
+            0% { transform: translateY(0) scale(0.4) rotate(-10deg); opacity: 0; }
+            25% { opacity: 0.7; transform: translateY(-8px) scale(0.9) rotate(5deg); }
+            75% { opacity: 0.4; transform: translateY(-35px) scale(1) rotate(-5deg); }
+            100% { transform: translateY(-42px) scale(0.5) rotate(10deg); opacity: 0; }
+        }
+        @keyframes mhFloat3 {
+            0% { transform: translateX(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.7; transform: translateX(-8px) translateY(-5px) scale(1); }
+            80% { opacity: 0.4; transform: translateX(-20px) translateY(-25px) scale(0.9); }
+            100% { transform: translateX(-25px) translateY(-35px) scale(0.5); opacity: 0; }
+        }
+        @keyframes mhFloat4 {
+            0% { transform: translateX(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.75; transform: translateX(6px) translateY(-4px) scale(1.05); }
+            80% { opacity: 0.4; transform: translateX(18px) translateY(-28px) scale(0.95); }
+            100% { transform: translateX(22px) translateY(-38px) scale(0.5); opacity: 0; }
+        }
+        @keyframes mhFloat5 {
+            0% { transform: translateY(0) scale(0.3); opacity: 0; }
+            25% { opacity: 0.6; transform: translateY(-10px) scale(0.85); }
+            75% { opacity: 0.3; transform: translateY(-30px) scale(1); }
+            100% { transform: translateY(-40px) scale(0.5); opacity: 0; }
         }
 
         @media (max-width: 600px) {
+            .music-wrapper {
+                bottom: 30px;
+                width: 64px;
+                height: 64px;
+            }
+            .music-progress {
+                width: 64px;
+                height: 64px;
+            }
             .music-btn {
-                bottom: 20px;
-                right: 20px;
-                width: 42px;
-                height: 42px;
-                font-size: 18px;
+                width: 52px;
+                height: 52px;
+                font-size: 24px;
             }
         }
 
@@ -1047,10 +1196,6 @@
 </head>
 
 <body>
-    <!-- Pantalla de bienvenida -->
-    <div class="welcome-overlay" id="welcomeOverlay" onclick="enterPage()">
-    </div>
-
     <!-- Orbes bokeh de fondo -->
     <div class="bokeh-container" id="bokeh"></div>
 
@@ -1314,7 +1459,29 @@
     <audio id="bgMusic" preload="auto">
         <source src="01 America - You Can Do Magic.mp3" type="audio/mpeg">
     </audio>
-    <button class="music-btn" id="musicBtn" onclick="toggleMusic(event)">&#9835;</button>
+    <div class="music-wrapper" id="musicWrapper">
+        <svg class="music-progress" viewBox="0 0 56 56">
+            <circle class="music-progress-bg" cx="28" cy="28" r="25"></circle>
+            <circle class="music-progress-bar" id="musicProgress" cx="28" cy="28" r="25"></circle>
+        </svg>
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic(event)">&#9835;</button>
+        <!-- Corazones flotantes del boton -->
+        <svg class="music-heart mh-1" width="12" height="12" viewBox="0 0 50 50">
+            <path d="M25 44 C23 40 4 28 4 16 C4 8 10 3 16 6 C20 8 23 13 25 16 C27 12 30 7 35 5 C41 3 47 8 46 16 C45 28 27 40 25 44Z" fill="#ff6b8a"/>
+        </svg>
+        <svg class="music-heart mh-2" width="10" height="10" viewBox="0 0 50 50">
+            <path d="M24 43 C22 39 5 30 3 18 C2 10 8 4 15 5 C19 6 22 10 24 14 C26 9 30 4 36 4 C43 4 48 11 46 19 C44 30 26 39 24 43Z" fill="#ff2050"/>
+        </svg>
+        <svg class="music-heart mh-3" width="9" height="9" viewBox="0 0 50 50">
+            <path d="M26 45 C24 41 6 29 5 17 C4 9 9 3 16 5 C21 7 24 12 26 15 C28 11 32 6 37 4 C44 2 48 9 47 17 C46 29 28 41 26 45Z" fill="#ffffff" opacity="0.9"/>
+        </svg>
+        <svg class="music-heart mh-4" width="11" height="11" viewBox="0 0 50 50">
+            <path d="M25 46 C23 42 3 29 3 15 C3 7 9 2 17 5 C21 7 24 12 25 15 C26 11 29 5 34 3 C42 1 48 7 47 16 C46 29 27 42 25 46Z" fill="#e81040"/>
+        </svg>
+        <svg class="music-heart mh-5" width="8" height="8" viewBox="0 0 50 50">
+            <path d="M24 42 C22 38 6 28 5 18 C4 11 9 5 14 6 C18 7 21 11 24 15 C27 10 31 6 36 5 C42 4 46 10 45 18 C44 28 26 38 24 42Z" fill="#ff8fa8"/>
+        </svg>
+    </div>
 
     <!--<button class="download-btn" id="downloadBtn" onclick="downloadPDF()">Descargar Tarjeta</button>
 -->
@@ -1769,8 +1936,18 @@
             }, 50);
         }
 
-        // Vigilar el tiempo para hacer fade out antes del final
+        // Anillo de progreso
+        const progressBar = document.getElementById('musicProgress');
+        const CIRCUMFERENCE = 2 * Math.PI * 25; // 157
+
+        // Vigilar el tiempo para progreso y fade out
         bgMusic.addEventListener('timeupdate', () => {
+            // Actualizar anillo de progreso
+            const duration = MUSIC_END - MUSIC_START;
+            const elapsed = bgMusic.currentTime - MUSIC_START;
+            const progress = Math.max(0, Math.min(1, elapsed / duration));
+            progressBar.style.strokeDashoffset = CIRCUMFERENCE * (1 - progress);
+
             if (bgMusic.currentTime >= MUSIC_END && !isFadingOut) {
                 fadeOutAndLoop();
             }
@@ -1787,29 +1964,15 @@
             if (musicStarted) return;
             musicStarted = true;
 
-            function doSeekAndPlay() {
-                // Posicionar primero, esperar a que termine el seek, luego reproducir
+            const wrapper = document.getElementById('musicWrapper');
+            bgMusic.play().then(() => {
                 bgMusic.currentTime = MUSIC_START;
-                bgMusic.addEventListener('seeked', function onSeeked() {
-                    bgMusic.removeEventListener('seeked', onSeeked);
-                    bgMusic.play().then(() => {
-                        fadeIn();
-                        musicBtn.innerHTML = '&#9835;';
-                    }).catch(() => {
-                        musicStarted = false;
-                    });
-                });
-            }
-
-            if (bgMusic.readyState >= 3) {
-                doSeekAndPlay();
-            } else {
-                bgMusic.addEventListener('canplaythrough', function handler() {
-                    bgMusic.removeEventListener('canplaythrough', handler);
-                    doSeekAndPlay();
-                });
-                bgMusic.load();
-            }
+                fadeIn();
+                musicBtn.innerHTML = '&#9835;';
+                wrapper.classList.add('playing');
+            }).catch(() => {
+                musicStarted = false;
+            });
         }
 
         function toggleMusic(e) {
@@ -1819,23 +1982,19 @@
                 isMuted = false;
                 return;
             }
+            const wrapper = document.getElementById('musicWrapper');
             isMuted = !isMuted;
             if (isMuted) {
                 bgMusic.pause();
                 musicBtn.innerHTML = '&#10006;';
+                wrapper.classList.remove('playing');
             } else {
                 bgMusic.play();
                 musicBtn.innerHTML = '&#9835;';
+                wrapper.classList.add('playing');
             }
         }
 
-        // Iniciar al tocar la pantalla de bienvenida
-        function enterPage() {
-            const overlay = document.getElementById('welcomeOverlay');
-            overlay.classList.add('hidden');
-            setTimeout(() => overlay.remove(), 1000);
-            startMusic();
-        }
     </script>
 </body>
 
