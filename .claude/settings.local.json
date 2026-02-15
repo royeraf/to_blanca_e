@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:patorjk.com)"
+      "WebFetch(domain:patorjk.com)",
+      "WebFetch(domain:www.hooktheory.com)",
+      "WebFetch(domain:www.letras.com)"
     ]
   }
 }
