@@ -1898,8 +1898,8 @@
         // ========================================
         const bgMusic = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicBtn');
-        const MUSIC_START = 47;       // Inicio del primer coro
-        const MUSIC_END = 200;        // Antes del final para hacer fade out
+        const MUSIC_START = 0;        // Inicio de la cancion
+        const MUSIC_END = 0;          // 0 = dejar que termine naturalmente
         const FADE_DURATION = 3000;   // 3 segundos de fade
         const MAX_VOLUME = 0.5;
         let isMuted = false;
@@ -1940,23 +1940,17 @@
         const progressBar = document.getElementById('musicProgress');
         const CIRCUMFERENCE = 2 * Math.PI * 25; // 157
 
-        // Vigilar el tiempo para progreso y fade out
+        // Vigilar el tiempo para progreso
         bgMusic.addEventListener('timeupdate', () => {
             // Actualizar anillo de progreso
-            const duration = MUSIC_END - MUSIC_START;
-            const elapsed = bgMusic.currentTime - MUSIC_START;
-            const progress = Math.max(0, Math.min(1, elapsed / duration));
+            const totalDuration = bgMusic.duration || 1;
+            const progress = Math.max(0, Math.min(1, bgMusic.currentTime / totalDuration));
             progressBar.style.strokeDashoffset = CIRCUMFERENCE * (1 - progress);
-
-            if (bgMusic.currentTime >= MUSIC_END && !isFadingOut) {
-                fadeOutAndLoop();
-            }
         });
 
-        // Si llega al final natural, reiniciar
+        // Al llegar al final, reiniciar con fade in
         bgMusic.addEventListener('ended', () => {
-            isFadingOut = false;
-            bgMusic.currentTime = MUSIC_START;
+            bgMusic.currentTime = 0;
             bgMusic.play().then(() => fadeIn()).catch(() => {});
         });
 
